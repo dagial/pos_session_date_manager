@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+       <record id="bk_pos_xml_dump_view_form" model="ir.ui.view">
+        <field name="name">bk.pos.xml_dump.form</field>
+        <field name="model">bk.pos.xml_dump</field>
+        <field name="arch" type="xml">
+            <form string="XML PATH">
+                <sheet>
+                    <group>
+                        <field name="pos_config_id" />
+                       <field name="allow_inv_xml" string="Allow Invoice in XML"/>
+                    </group>
+
+
+                    <notebook>
+                        <page string="Allowed Path">
+                            <field name="xml_dump_paths" widget="one2many">
+                                <tree editable="bottom">
+                                    <field name="path"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+        </record>
+
+
+        <record id="bk_pos_xml_dump_tree" model="ir.ui.view">
+        <field name="name">bk.pos.xml_dump.tree</field>
+        <field name="model">bk.pos.xml_dump</field>
+        <field name="arch" type="xml">
+            <tree>
+<!--                    <field name="pos_config_id" />-->
+                    <field name="allow_inv_xml"/>
+                    <field name="xml_dump_paths"/>
+            </tree>
+        </field>
+        </record>
+
+        <record id="action_pos_xml_dump_config_form" model="ir.actions.act_window">
+            <field name="name">Invoice to Xml </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bk.pos.xml_dump</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="menu_pos_invoice_dump" parent="point_of_sale.menu_point_config_product"
+                  action="action_pos_xml_dump_config_form"
+                  sequence="3"   />
+<!--                  groups="group_pos_manager,group_pos_user"/>-->
+</odoo>

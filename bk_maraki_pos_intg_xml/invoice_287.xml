@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Invoice>
+  <Invoice_Type>Invoice</Invoice_Type>
+  <Reference_Number>0402</Reference_Number>
+  <Invoice_Date>10.09.2024</Invoice_Date>
+  <Customer_Code></Customer_Code>
+  <Customer_Name>Abinet General Trading Plc</Customer_Name>
+  <Customer_TIN>0000747797</Customer_TIN>
+  <Payment_Type>Cash</Payment_Type>
+  <Invoice_DiscOrAdd_Amount>882.39</Invoice_DiscOrAdd_Amount>
+  <Line_Items>
+    <Item_ID></Item_ID>
+    <Item_Description>ALVINDE SYRAH ROSE 75CL*6(LOCAL-PS)</Item_Description>
+    <Item_Quantity>1.0</Item_Quantity>
+    <Item_UOM>PCS</Item_UOM>
+    <Item_Unit_Price>1.00</Item_Unit_Price>
+    <Item_Tax_Percent>15.00</Item_Tax_Percent>
+    <Item_DiscOrAdd_Amount>0.00</Item_DiscOrAdd_Amount>
+  </Line_Items>
+  <Line_Items>
+    <Item_ID></Item_ID>
+    <Item_Description>ALVINDE SYRAH ROSE 6*75*14(LOCAL-PS)</Item_Description>
+    <Item_Quantity>4.0</Item_Quantity>
+    <Item_UOM>PCS</Item_UOM>
+    <Item_Unit_Price>1.00</Item_Unit_Price>
+    <Item_Tax_Percent>15.00</Item_Tax_Percent>
+    <Item_DiscOrAdd_Amount>0.00</Item_DiscOrAdd_Amount>
+  </Line_Items>
+  <Line_Items>
+    <Item_ID>4750021000157</Item_ID>
+    <Item_Description>Stolichiniya Vodka 75cl(LOCAL-PS)</Item_Description>
+    <Item_Quantity>3.0</Item_Quantity>
+    <Item_UOM>PCS</Item_UOM>
+    <Item_Unit_Price>2260.86</Item_Unit_Price>
+    <Item_Tax_Percent>15.00</Item_Tax_Percent>
+    <Item_DiscOrAdd_Amount>0.00</Item_DiscOrAdd_Amount>
+  </Line_Items>
+</Invoice>
