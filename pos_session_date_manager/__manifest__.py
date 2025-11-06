@@ -22,5 +22,5 @@
             "pos_session_date_manager/static/src/**/*"
         ]
     },
-    "licence": "LGPL-3"
+     'license': "OPL-1"
 }
