@@ -1,3 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_pos_pos_xml_dump,bk.pos.xml_dump,model_bk_pos_xml_dump,point_of_sale.group_pos_manager,1,1,1,1
-access_pos_xml_dump_path,pos.xml.dump_path,model_pos_xml_dump_path,point_of_sale.group_pos_manager,1,1,1,1
