@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="view_form_pos_close_session_wizard_update" model="ir.ui.view">
+      <field name="name">pos.close.session.wizard.form.update</field>
+        <field name="model">pos.close.session.wizard</field>
+      <field name="inherit_id" ref="point_of_sale.view_form_pos_close_session_wizard"/>
+      <field name="arch" type="xml">
+                <xpath expr="//field[@name='account_id']" position="after">
+                    <field name="closing_date" string="Closing Date" widget="date"/>
+                </xpath>
+
+            </field>
+  </record>
+</odoo>

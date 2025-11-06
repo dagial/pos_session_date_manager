@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_session_date_manager.OpeningSession">
+        <div class="popup opening-cash-control">
+            <div class="modal-header drag-handle">
+                <h4 class="modal-title">Set Opening Date</h4>
+            </div>
+            <main class="modal-body">
+                <div class="opening-cash-section mb-3">
+                    <span class="info-title d-flex flex-grow-1 align-items-start">Opening Date</span>
+                    <div class="cash-input-sub-section input-group">
+                        <input type="date"
+                               class="form-control form-control-lg w-75 mx-auto"
+                               t-model="state.opening_date" t-on-change="handleDateChange"/>
+
+                    </div>
+                </div>
+
+            </main>
+            <footer class="footer modal-footer">
+                <button class="button btn btn-lg btn-primary"
+                    t-on-click="confirm"
+                    >
+                    Open session
+                </button>
+            </footer>
+        </div>
+    </t>
+</templates>

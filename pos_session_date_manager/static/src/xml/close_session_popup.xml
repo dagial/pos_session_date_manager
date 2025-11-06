@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="pos_session_date_manager.PaymentScreenButtons" t-inherit="point_of_sale.ClosePosPopup" t-inherit-mode="extension">
+           <xpath expr="//div[hasclass('notes-container')]" position="after">
+               <t t-if="this.pos.config.reporting">
+               <div class="d-flex flex-column align-items-start w-100 mt-4">
+                   <div class="d-flex flex-row justify-content-center align-items-center gap-3">
+                   <label for="closing_date" t-on-click="logState">Closing Date</label>
+                   <input t-model="state.closing_date" id="closing_date" type="date" class="form-control py-2 ml-5 px-3 rounded"/>
+
+                   </div>
+
+               </div>
+               </t>
+           </xpath>
+       </t>
+</templates>

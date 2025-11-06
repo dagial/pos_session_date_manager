@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="point_of_sale_report" model="ir.ui.view">
+      <field name="name">PoS Extension</field>
+        <field name="model">pos.config</field>
+      <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+      <field name="arch" type="xml">
+               <xpath expr="//div[@id='restaurant_on_create']" position='after'>
+                   <group string="POS Extended Configurations">
+                       <field name="reporting" readonly="has_active_session"/>
+                   </group>
+                   <br/>
+                   <br/>
+                </xpath>
+
+            </field>
+  </record>
+</odoo>
