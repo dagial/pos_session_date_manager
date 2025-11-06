@@ -22,5 +22,6 @@
             "pos_session_date_manager/static/src/**/*"
         ]
     },
-     'license': "OPL-1"
+    'license': "OPL-1",
+    'images' : ["images/main_screenshot.png"]
 }
