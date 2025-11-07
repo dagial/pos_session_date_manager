@@ -30,9 +30,9 @@ class PosSession(models.Model):
         data = self._create_cash_statement_lines_and_cash_move_lines(data)
         data = self._create_invoice_receivable_lines(data)
         data = self._create_stock_output_lines(data)
+
         if self.config_id.reporting:
-            self._change_statement_difference_date()
-            self._change_order_date()
+            self._change_stock_valuation_date()
         if balancing_account and amount_to_balance:
             data = self._create_balancing_line(data, balancing_account, amount_to_balance)
 
@@ -207,22 +207,65 @@ class PosSession(models.Model):
 
         return combine_statement_vals
 
-    def _change_statement_difference_date(self):
-        statements = self.env['account.bank.statement.line'].search([("pos_session_id", "=", self.id)])
-        statements.write({
-            "date": self.stop_at
-        })
+    def _post_statement_difference(self, amount, is_opening, opening_date=None):
+        if amount:
+            if self.config_id.cash_control:
+                st_line_vals = {
+                    'journal_id': self.cash_journal_id.id,
+                    'amount': amount,
+                    'date': opening_date if opening_date else (
+                            self.statement_line_ids.sorted()[-1:].date or fields.Date.context_today(self)),
+                    'pos_session_id': self.id,
+                }
 
-    def _change_order_date(self):
-        orders = self.env["pos.order"].search([("session_id", "=", self.id)])
-        orders.write({
-            "date_order": self.stop_at
-        })
+            if amount < 0.0:
+                if not self.cash_journal_id.loss_account_id:
+                    raise UserError(
+                        _('Please go on the %s journal and define a Loss Account. This account will be used to record cash difference.',
+                          self.cash_journal_id.name))
 
-    def set_opening_date(self,opening_date):
+                st_line_vals['payment_ref'] = _("Cash difference observed during the counting (Loss)") + (
+                    _(' - opening') if is_opening else _(' - closing'))
+                if not is_opening:
+                    st_line_vals['counterpart_account_id'] = self.cash_journal_id.loss_account_id.id
+            else:
+                # self.cash_register_difference  > 0.0
+                if not self.cash_journal_id.profit_account_id:
+                    raise UserError(
+                        _('Please go on the %s journal and define a Profit Account. This account will be used to record cash difference.',
+                          self.cash_journal_id.name))
+
+                st_line_vals['payment_ref'] = _("Cash difference observed during the counting (Profit)") + (
+                    _(' - opening') if is_opening else _(' - closing'))
+                if not is_opening:
+                    st_line_vals['counterpart_account_id'] = self.cash_journal_id.profit_account_id.id
+
+            self.env['account.bank.statement.line'].create(st_line_vals)
+
+    def set_cashbox_pos(self, cashbox_value: int, notes: str, opening_date=None):
+        self.state = 'opened'
+        self.opening_notes = notes
+        difference = cashbox_value - self.cash_register_balance_start
+        self.cash_register_balance_start = cashbox_value
+        self.sudo()._post_statement_difference(difference, True, opening_date)
+        self._post_cash_details_message('Opening', difference, notes)
+
+    def set_opening_date(self, opening_date):
         if self.config_id.reporting:
             self.write({
                 "start_at": opening_date
             })
 
+    def _change_stock_valuation_date(self):
+        picking_ids = self.picking_ids.mapped("name")
+
+        query = """
+                UPDATE stock_valuation_layer
+                SET create_date = %s
+                FROM stock_valuation_layer svl 
+                LEFT JOIN stock_move sm on sm.id = svl.stock_move_id
+                WHERE sm.reference = ANY(%s::text[])
+        """
+
+        self.env.cr.execute(query, [self.stop_at, picking_ids])
 

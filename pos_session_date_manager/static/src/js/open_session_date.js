@@ -8,6 +8,7 @@ import { usePos } from "@point_of_sale/app/store/pos_hook";
 import { patch } from "@web/core/utils/patch";
 import { ProductScreen } from "@point_of_sale/app/screens/product_screen/product_screen";
 import { PosStore } from "@point_of_sale/app/store/pos_store";
+import { CashOpeningPopup } from "@point_of_sale/app/store/cash_opening_popup/cash_opening_popup";
 const { DateTime } = luxon;
 export class OpeningSessionDate extends AbstractAwaitablePopup {
 
@@ -26,8 +27,6 @@ export class OpeningSessionDate extends AbstractAwaitablePopup {
         this.state.opening_date=e.target.value
     }
     async confirm(){
-
-
         this.orm.call("pos.session", "set_opening_date", [
             this.pos.pos_session.id,
             this.state.opening_date
@@ -57,4 +56,17 @@ patch(PosStore.prototype,{
         return this.pos_session.state === "opening_control" && this.config.reporting
     }
 
+})
+
+patch(CashOpeningPopup.prototype,{
+    async confirm() {
+        this.pos.pos_session.state = "opened";
+        this.orm.call("pos.session", "set_cashbox_pos", [
+            this.pos.pos_session.id,
+            parseFloat(this.state.openingCash),
+            this.state.notes,
+            this.pos.pos_session.start_at
+        ]);
+        super.confirm();
+    }
 })

@@ -13,8 +13,7 @@
     "data": [
         "views/pos_closing_session_wizard.xml",
         "views/point_of_sale.xml",
-        "views/pos_order_update.xml",
-        "views/pos_order_list.xml"
+
 
     ],
     'assets': {
