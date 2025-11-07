@@ -65,7 +65,11 @@
                 <li>Add all orders and set the closing date.</li>
                 <li>The module adjusts all accounting and stock entries automatically.</li>
             </ol>
-            <p><strong>Result:</strong>  After closing the session the system automatically sets the Order Date, Stock Picking Date, Stock Move Date, POS Journal Date, Payment Dates, Stock Valuation date and Cash Difference dates to the session closing date.</p>
+            <p><strong>Result:</strong>  After closing the session the system automatically</p>
+                <ol>
+                    <li>Sets Order date,payment date,invoice date (if invoice is allowed for the order) to the ordered time and opening date</li>
+                    <li>Sets Stock Picking Date, Stock Move Date, POS Journal Date, Payment Dates, Stock Valuation date and Cash Difference dates to the session closing date</li>
+                </ol>
         </div>
         <div class="oe_span6">
             <img class="oe_picture oe_screenshot" src="opening_date.png" alt="Opening Date Setting">
