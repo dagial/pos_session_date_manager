@@ -14,8 +14,8 @@ patch(ClosePosPopup.prototype,{
 
     getInitialState(){
         const initial_state=super.getInitialState()
-
-        return {...initial_state,closing_date:this.pos.pos_session.start_at}
+        const dt = DateTime.fromFormat(this.pos.pos_session.start_at, "yyyy-MM-dd HH:mm:ss");
+        return {...initial_state,closing_date:dt.toISODate()}
     },
     async closeSession() {
         if(this.pos.config.reporting && !this.state.closing_date){
