@@ -13,8 +13,6 @@
     "data": [
         "views/pos_closing_session_wizard.xml",
         "views/point_of_sale.xml",
-
-
     ],
     'assets': {
         'point_of_sale._assets_pos': [
@@ -22,5 +20,5 @@
         ]
     },
     'license': "OPL-1",
-    'images' : ["images/main_screenshot.png"]
+    'images': ["images/main_screenshot.png"]
 }

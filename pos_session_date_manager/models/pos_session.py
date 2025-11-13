@@ -8,6 +8,7 @@ import re
 class PosSession(models.Model):
     _inherit = "pos.session"
 
+    # for handling different currency dates
     def action_pos_session_open(self):
         # we only open sessions that haven't already been opened
         for session in self.filtered(lambda session: session.state == 'opening_control'):
@@ -23,6 +24,22 @@ class PosSession(models.Model):
                 values['state'] = 'opened'
             session.write(values)
         return True
+
+    def _process_pos_ui_product_product(self, products):
+        """
+        Modify the list of products to add the categories as well as adapt the lst_price
+        :param products: a list of products
+        """
+
+        if self.config_id.currency_id != self.company_id.currency_id:
+            for product in products:
+                product['lst_price'] = self.company_id.currency_id._convert(product['lst_price'], self.config_id.currency_id,
+                                                                            self.company_id, self.start_at or fields.Date.today())
+        categories = self._get_pos_ui_product_category(self._loader_params_product_category())
+        product_category_by_id = {category['id']: category for category in categories}
+        for product in products:
+            product['categ'] = product_category_by_id[product['categ_id'][0]]
+            product['image_128'] = bool(product['image_128'])
 
     def _create_account_move(self, balancing_account=False, amount_to_balance=0, bank_payment_method_diffs=None):
         """ Create account.move and account.move.line records for this session.

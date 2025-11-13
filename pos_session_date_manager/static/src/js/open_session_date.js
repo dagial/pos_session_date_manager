@@ -20,7 +20,6 @@ export class OpeningSessionDate extends AbstractAwaitablePopup {
             opening_date:DateTime.now().toISODate()
         })
         this.pos=usePos()
-        this.popup = useService("popup");
         this.orm = useService("orm");
     }
     handleDateChange(e){
@@ -31,10 +30,14 @@ export class OpeningSessionDate extends AbstractAwaitablePopup {
             this.pos.pos_session.id,
             this.state.opening_date
         ]);
+
         this.pos.pos_session.start_at = this.state.opening_date
+
+        if( this.pos.company.currency_id[0] !== this.pos.currency.id ){
+            window.location.reload();
+        }
         super.confirm()
     }
-
 }
 
 patch(ProductScreen.prototype,{

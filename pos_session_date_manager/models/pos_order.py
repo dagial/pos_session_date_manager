@@ -25,3 +25,8 @@ class PosOrder(models.Model):
             payment_fields["payment_date"] = order.date_order
 
         return payment_fields
+
+    @api.model
+    def _process_order(self, order, draft, existing_order):
+        rtr=super()._process_order(order,draft,existing_order)
+

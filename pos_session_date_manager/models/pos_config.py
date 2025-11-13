@@ -1,5 +1,6 @@
-from odoo import models,fields,api
+from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+
 
 class POSConfigUpdate(models.Model):
     _inherit = "pos.config"
@@ -10,4 +11,3 @@ class POSConfigUpdate(models.Model):
         if self.company_id.point_of_sale_update_stock_quantities == "real" and self.reporting:
             raise ValidationError(
                 "To allow date adjustment, inventory management type must be at session closing. Please change setting in pos configuration.")
-
