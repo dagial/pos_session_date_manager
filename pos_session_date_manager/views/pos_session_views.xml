@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <!--
+        The adjusted dates are shown read only on the session. They are the
+        audit trail for why a session's entries carry a date that is not the
+        date they were recorded.
+    -->
+    <record id="view_pos_session_form_date_adjustment" model="ir.ui.view">
+        <field name="name">pos.session.form.date.adjustment</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+        <field name="arch" type="xml">
+            <field name="stop_at" position="after">
+                <field name="backdate_start" invisible="not backdate_start"/>
+                <field name="backdate_stop" invisible="not backdate_stop"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

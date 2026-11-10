@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_form_pos_close_session_wizard_update" model="ir.ui.view">
+        <field name="name">pos.close.session.wizard.form.date.adjustment</field>
+        <field name="model">pos.close.session.wizard</field>
+        <field name="inherit_id" ref="point_of_sale.view_form_pos_close_session_wizard"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='account_id']" position="after">
+                <field name="allow_backdate" invisible="1"/>
+                <field name="closing_date"
+                       invisible="not allow_backdate"
+                       groups="pos_session_date_manager.group_pos_backdate"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

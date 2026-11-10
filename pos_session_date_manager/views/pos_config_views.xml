@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="pos_config_view_form_date_adjustment" model="ir.ui.view">
+        <field name="name">pos.config.form.date.adjustment</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='restaurant_on_create']" position="after">
+                <group string="Date Adjustment"
+                       groups="pos_session_date_manager.group_pos_backdate">
+                    <field name="reporting" readonly="has_active_session"/>
+                    <div class="text-muted" invisible="not reporting">
+                        Inventory must be updated at session closing, not in real
+                        time. Entries made in this Point of Sale can be dated in
+                        the past, within the accounting lock dates.
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

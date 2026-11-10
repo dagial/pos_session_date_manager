@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_session_date_manager.OpeningControlPopupDate"
+       t-inherit="point_of_sale.OpeningControlPopup"
+       t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('opening-notes-container')]" position="before">
+            <div class="opening-date-section mb-3" t-if="allowBackdate">
+                <label class="form-label" for="openingDate">Opening date</label>
+                <div t-att-class="{ 'w-50': !ui.isSmall }">
+                    <DateTimeInput
+                        id="'openingDate'"
+                        type="'datetime'"
+                        value="state.openingDate"
+                        maxDate="'today'"
+                        onChange.bind="onOpeningDateChange"/>
+                </div>
+                <small class="text-muted">
+                    Sales, accounting entries and stock moves for this session
+                    will be recorded from this moment.
+                </small>
+            </div>
+        </xpath>
+    </t>
+
+    <t t-name="pos_session_date_manager.ClosePosPopupDate"
+       t-inherit="point_of_sale.ClosePosPopup"
+       t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('closing-notes-container')]" position="before">
+            <div class="closing-date-section d-flex flex-column align-items-start mb-3"
+                 t-if="allowBackdate">
+                <div class="opening-date-readonly mb-2" t-if="openingDateLabel">
+                    <label class="form-label">Opening date</label>
+                    <div class="form-control-plaintext py-0" t-esc="openingDateLabel"/>
+                </div>
+                <label class="form-label" for="closingDate">Closing date</label>
+                <DateTimeInput
+                    id="'closingDate'"
+                    type="'datetime'"
+                    value="state.closingDate"
+                    maxDate="'today'"
+                    onChange.bind="onClosingDateChange"/>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

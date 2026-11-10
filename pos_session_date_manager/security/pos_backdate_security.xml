@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--
+            Backdating writes accounting entries and stock moves into past
+            periods. That is a privileged action, not something every cashier
+            should be able to do from the till, so it gets its own group and a
+            lock date check on top.
+        -->
+        <record id="group_pos_backdate" model="res.groups">
+            <field name="name">Point of Sale: Adjust Session Dates</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+            <field name="comment">Allows setting a Point of Sale session's opening and closing dates in the past.</field>
+        </record>
+
+        <record id="point_of_sale.group_pos_manager" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('pos_session_date_manager.group_pos_backdate'))]"/>
+        </record>
+
+    </data>
+</odoo>
