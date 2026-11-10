@@ -4,8 +4,6 @@
     "version": "17.0.1.0.0",
     "website": "mailto:dagemalemayehu123@gmail.com",
     "category": "Point Of Sale",
-    "price": "65",
-    "currency": "USD",
     "description": """
     Adds A Functionality for adding Backlog sales on the pos.
     """,
